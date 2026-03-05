@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Melbourne House Price Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏠 Melbourne House Price Predictor</h1>
+            <p>Enter property details to get an estimated price</p>
+        </header>
+        
+        <div class="prediction-form">
+            <form action="/predict" method="post">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="rooms">Number of Rooms:</label>
+                        <input type="number" id="rooms" name="rooms" min="1" max="10" value="3" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="type">Property Type:</label>
+                        <select id="type" name="type" required>
+                            <option value="h">House</option>
+                            <option value="u">Unit/Apartment</option>
+                            <option value="t">Townhouse</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="postcode">Postcode:</label>
+                        <input type="number" id="postcode" name="postcode" min="3000" max="4000" value="3067" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="landsize">Land Size (sqm):</label>
+                        <input type="number" id="landsize" name="landsize" min="0" max="5000" value="150" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="bedrooms">Bedrooms (optional):</label>
+                        <input type="number" id="bedrooms" name="bedrooms" min="1" max="10" value="3">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bathrooms">Bathrooms (optional):</label>
+                        <input type="number" id="bathrooms" name="bathrooms" min="1" max="5" value="2">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="building_area">Building Area (sqm, optional):</label>
+                        <input type="number" id="building_area" name="building_area" min="0" max="1000" value="120">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="year_built">Year Built (optional):</label>
+                        <input type="number" id="year_built" name="year_built" min="1800" max="2024" value="2000">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="car">Car Spaces (optional):</label>
+                        <input type="number" id="car" name="car" min="0" max="10" value="2">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="property_count">Properties in Suburb (optional):</label>
+                        <input type="number" id="property_count" name="property_count" min="0" max="10000" value="2000">
+                    </div>
+                </div>
+                
+                <button type="submit" class="predict-btn">Predict Price</button>
+            </form>
+        </div>
+        
+        {% if prediction_text %}
+        <div class="prediction-result">
+            <h2>{{ prediction_text }}</h2>
+        </div>
+        {% endif %}
+        
+        <div class="info-section">
+            <h3>About the Model</h3>
+            <p>This price prediction model uses machine learning trained on Melbourne housing data. The model considers multiple factors including property size, location, and features.</p>
+            
+            <h4>Key Features Considered:</h4>
+            <ul>
+                <li>Number of rooms and property type</li>
+                <li>Land size and building area</li>
+                <li>Location (postcode)</li>
+                <li>Property age</li>
+                <li>Suburb density and amenities</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
